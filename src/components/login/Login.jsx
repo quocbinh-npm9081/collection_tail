@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { SiFacebook } from '@react-icons/all-files/si/SiFacebook';
 import { FcGoogle } from '@react-icons/all-files/fc/FcGoogle';
 const Login = () => {
@@ -11,22 +12,20 @@ const Login = () => {
                     className="p-4 py-6 text-white bg-blue-500 md:w-80 md:flex-shrink-0 md:flex md:flex-col md:items-center md:justify-evenly"
                 >
                     <div className="my-3 text-4xl font-bold tracking-wider text-center">
-                        <a>Collection_Tail</a>
+                        <h2>Collection_Tail</h2>
                     </div>
                     <p className="mt-6 font-normal text-center text-gray-300 md:mt-0">
                         With the power of K-WD, you can now focus only on functionaries htmlFor your digital products, while leaving the
                         UI design on us!
                     </p>
                     <p className="flex flex-col items-center justify-center mt-10 text-center">
-                        <span>Don't have an account?</span>
-                        <a className="underline">Get Started!</a>
+                        <span>Don't have an account? </span>
+                        <Link to="/register" className="underline">Register</Link>
                     </p>
-                    <p className="mt-6 text-sm text-center text-gray-300">
-                        Read our <a className="underline">terms</a> and <a className="underline">conditions</a>
-                    </p>
+
                 </div>
                 <div className="p-5 bg-white md:flex-1">
-                    <h3 className="my-4 text-2xl font-semibold text-gray-700">Account Login</h3>
+                    <h1 className="text-gray-800 font-bold text-2xl mb-1 uppercase">login</h1>
                     <form action="#" className="flex flex-col space-y-5">
                         <div className="flex flex-col space-y-1">
                             <label htmlFor="email" className="text-sm font-semibold text-gray-500">Email address</label>
@@ -57,7 +56,7 @@ const Login = () => {
                                 <label htmlFor="remember" className="text-sm font-semibold text-gray-500">Remember me</label>
 
                             </div>
-                            <a className="text-sm text-blue-600 hover:underline focus:text-blue-800">Forgot Password?</a>
+                            <Link to='/' className="text-sm text-blue-600 hover:underline focus:text-blue-800">Forgot Password?</Link>
 
                         </div>
                         <div>
@@ -74,7 +73,6 @@ const Login = () => {
                                 <span className="font-normal text-gray-500">or login with</span>
                                 <span className="h-px bg-gray-400 w-14"></span>
                             </span>
-
                         </div>
                     </form>
                     <div className='flex items-center justify-center'>
