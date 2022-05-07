@@ -1,16 +1,13 @@
 import React from "react"
 
 import { IRegister } from "../../redux/type";
+import { validateEmail } from "./validateEmail";
 
 const checkNameContainsSpecialChars = (userName: string) => {
     const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
     return specialChars.test(userName);
 }
-const validateEmail = (email: string) => {
-    return email.match(
-        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-};
+
 
 const checkExistPassword = (password: string, cfPassword: string) => {
     if (password !== cfPassword) return ("Confirm password did not match. !")
