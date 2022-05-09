@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { ILogin } from '../../redux/type';
 import Error from '../errors/Errors';
 import { useAppDispatch, useAppSelector } from '../../redux/store.hooks';
-import { authConfilmLoginWithEmail } from '../../redux/slides/auth.slides';
+import { authConfirmLoginWithEmail } from '../../redux/slides/auth.slides';
 import Loading from '../loading/Loading';
 const Confirm = () => {
 
@@ -46,7 +46,7 @@ const Confirm = () => {
                 progress: undefined,
             })
         } else {
-            dispatch(authConfilmLoginWithEmail(user));
+            dispatch(authConfirmLoginWithEmail(user));
         }
     }
 

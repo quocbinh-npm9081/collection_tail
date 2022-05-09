@@ -21,6 +21,8 @@ function App() {
     const authListender = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const email: any = user.email;
+        console.log(user);
+
         console.log(user.emailVerified);
         console.log("URL: ", window.location.href);
 

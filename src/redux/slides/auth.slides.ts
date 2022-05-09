@@ -2,6 +2,7 @@ import { RootState } from '../store';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { IAuthState, ILogin, IRegister } from '../type';
 import { registerApi, loginApi } from '../actions/auth.action';
+import { toast } from 'react-toastify';
 import { getAuth } from 'firebase/auth';
 import {
     browserLocalPersistence,
@@ -41,18 +42,33 @@ export const authLogin = createAsyncThunk(
 )
 
 
-export const authConfilmLoginWithEmail = createAsyncThunk(
+export const authConfirmLoginWithEmail = createAsyncThunk(
     'auth/confirm',
     async (user: ILogin) => {
 
-        const { email, remember } = user;
+        try {
+            const { email, remember } = user;
 
-        await setPersistence(authen, remember ? browserLocalPersistence : browserSessionPersistence);
-        const res = await signInWithEmailLink(authen, email, window.location.href);
-        console.log("URL", window.location.href);
-        console.log(user);
+            await setPersistence(authen, remember ? browserLocalPersistence : browserSessionPersistence);
+            const res = await signInWithEmailLink(authen, email, window.location.href);
 
-        return res.user;
+
+            return res.user;
+
+        } catch (error: any) {
+            console.log('error' + error.message);
+
+            toast.error('Email or password wrong !', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: false,
+                progress: undefined,
+            });
+
+        }
 
 
     }
@@ -87,10 +103,10 @@ const auth = createSlice({
             .addCase(authLogin.fulfilled, (state, action) => {
                 state.loading = false
             })
-            .addCase(authConfilmLoginWithEmail.pending, (state, action) => {
+            .addCase(authConfirmLoginWithEmail.pending, (state, action) => {
                 state.loading = true
             })
-            .addCase(authConfilmLoginWithEmail.fulfilled, (state, action) => {
+            .addCase(authConfirmLoginWithEmail.fulfilled, (state, action) => {
                 state.loading = false
             })
     }
