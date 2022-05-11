@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AvataNavbar from './AvataNavbar';
+import { useAppDispatch, useAppSelector } from '../../redux/store.hooks';
+import { isRegister, authLogout } from '../../redux/slides/auth.slides';
 const itemsNav = [{
     display: 'Login',
     path: '/login'
@@ -11,41 +13,63 @@ const itemsNav = [{
 
 
 const Navbar = () => {
+
+    const dispatch = useAppDispatch();
+
+    const { currentUser } = useAppSelector(state => state.auth);
+
+
     return (
         <div>
-            <div className="flex items-center">
-                <AvataNavbar />
-                <button className='px-5 py-2 rounded-md bg-emerald-500 text-white hover:bg-neutral-900'>
-                    Log out
-                </button>
-            </div>
-            <>
-                {
-                    itemsNav.map((item, index) => (
+            {
+                currentUser ? (
+                    <div className="flex items-center">
+                        <AvataNavbar />
+                        <button className='px-5 py-2 rounded-md bg-emerald-500 text-white hover:bg-neutral-900'
+                            onClick={() => dispatch(authLogout())}
+                        >
+                            Log out
+                        </button>
+                    </div>
 
-                        item.path === '/register' ? (
-                            <Link to={item.path} key={index}>
-                                <button className='px-5 py-2 rounded-md bg-indigo-600 text-white hover:bg-neutral-900'>
-                                    {
-                                        item.display
-                                    }
-                                </button>
-                            </Link>
-                        ) : (
-                            <Link to={item.path} key={index}>
-                                <button className='px-5 py-2 rounded-md hover:text-blue-600'
+                ) : (
+                    <>
+                        {
+                            itemsNav.map((item, index) => (
 
-                                >
-                                    {
-                                        item.display
-                                    }
-                                </button>
-                            </Link>
-                        )
-                    ))
-                }
+                                item.path === '/register' ? (
+                                    <Link to={item.path} key={index}>
+                                        <button className='px-5 py-2 rounded-md bg-indigo-600 text-white hover:bg-neutral-900'
+                                            onClick={() => dispatch(isRegister(true))}
 
-            </>
+                                        >
+                                            {
+                                                item.display
+                                            }
+                                        </button>
+                                    </Link>
+                                ) : (
+                                    <Link to={item.path} key={index}>
+                                        <button className='px-5 py-2 rounded-md hover:text-blue-600'
+                                            onClick={() => dispatch(isRegister(false))}
+
+                                        >
+                                            {
+                                                item.display
+                                            }
+                                        </button>
+                                    </Link>
+                                )
+                            ))
+                        }
+
+                    </>
+
+                )
+            }
+
+
+
 
         </div >
     )

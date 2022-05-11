@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import Route from './router/index';
 import Header from './components/header/Header';
@@ -11,7 +11,7 @@ import { auth } from './config/firebase';
 import { addUser } from './redux/slides/auth.slides';
 import { actionCodeSettings } from './redux/actions/auth.action';
 function App() {
-  const { currentUser } = useAppSelector(state => state.auth);
+  const { currentUser, register } = useAppSelector(state => state.auth);
 
   const navigate = useNavigate();
 
@@ -49,7 +49,10 @@ function App() {
 
 
       } else {
+
         dispatch(addUser(undefined));
+        if (!register) return navigate('/login');
+        else return navigate('/register');
 
       }
     });

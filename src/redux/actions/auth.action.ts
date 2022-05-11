@@ -5,7 +5,9 @@ import {
     signInWithEmailAndPassword,
     updateProfile,
     setPersistence,
-    signInWithPopup
+    signInWithPopup,
+    sendPasswordResetEmail,
+    signOut
 
 } from "firebase/auth";
 import { toast } from "react-toastify";
@@ -91,3 +93,47 @@ export const googleApi = async () => {
     }
 }
 
+export const forgotPasswordApi = async (email: string) => {
+    try {
+        await sendPasswordResetEmail(auth, email);
+
+        return toast.success('Success ! Check your email', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+        });;
+    } catch (error: any) {
+        return toast.error(error.message, {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+        });;
+    }
+}
+
+
+export const signOutApi = async () => {
+    try {
+        await signOut(auth);
+        return toast('Log out success !', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+        });
+    } catch (error: any) {
+        toast.error(error.message)
+
+    }
+}

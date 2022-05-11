@@ -1,7 +1,7 @@
 import { RootState } from '../store';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { IAuthState, ILogin, IRegister } from '../type';
-import { registerApi, loginApi, googleApi } from '../actions/auth.action';
+import { registerApi, loginApi, googleApi, forgotPasswordApi, signOutApi } from '../actions/auth.action';
 import { toast } from 'react-toastify';
 import { getAuth } from 'firebase/auth';
 import { facebookProvider } from '../../config/firebase';
@@ -11,6 +11,7 @@ import {
     browserSessionPersistence,
     signInWithEmailLink,
     setPersistence
+
 } from "firebase/auth";
 
 const authen = getAuth();
@@ -18,6 +19,7 @@ const authen = getAuth();
 
 
 const initialState: IAuthState = {
+    register: false,
     currentUser: undefined,
     loading: false
 }
@@ -92,6 +94,20 @@ export const authLoginWithFacebook = createAsyncThunk(
     }
 )
 
+export const authForgotPassword = createAsyncThunk(
+    'auth/forgot_password',
+    async (email: string) => {
+        return forgotPasswordApi(email);
+    }
+)
+
+export const authLogout = createAsyncThunk(
+    'auth/logout',
+    async () => {
+        return signOutApi();
+    }
+)
+
 const auth = createSlice({
 
     name: 'auth',
@@ -104,6 +120,12 @@ const auth = createSlice({
 
             state.currentUser = action.payload
 
+        },
+
+        isRegister: (state, action) => {
+            console.log(action.payload);
+
+            state.register = action.payload
         }
     },
 
@@ -133,10 +155,16 @@ const auth = createSlice({
             .addCase(authLoginWithGoogle.fulfilled, (state, action) => {
                 state.loading = false
             })
+            .addCase(authForgotPassword.pending, (state, actionn) => {
+                state.loading = true
+            })
+            .addCase(authForgotPassword.fulfilled, (state, action) => {
+                state.loading = false
+            })
     }
 })
 
 export const getStateAuth = (state: RootState) => state.auth;
-export const { addUser } = auth.actions;
+export const { addUser, isRegister } = auth.actions;
 
 export default auth.reducer;
