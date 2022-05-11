@@ -1,9 +1,11 @@
 import { RootState } from '../store';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { IAuthState, ILogin, IRegister } from '../type';
-import { registerApi, loginApi } from '../actions/auth.action';
+import { registerApi, loginApi, googleApi } from '../actions/auth.action';
 import { toast } from 'react-toastify';
 import { getAuth } from 'firebase/auth';
+import { facebookProvider } from '../../config/firebase';
+import { signInWithPopup } from 'firebase/auth';
 import {
     browserLocalPersistence,
     browserSessionPersistence,
@@ -74,6 +76,22 @@ export const authConfirmLoginWithEmail = createAsyncThunk(
     }
 )
 
+export const authLoginWithGoogle = createAsyncThunk(
+    'auth/google',
+    async () => {
+        return await googleApi();
+    }
+)
+
+
+export const authLoginWithFacebook = createAsyncThunk(
+    'auth/facebook',
+    async () => {
+        const res = await signInWithPopup(authen, facebookProvider);
+        return res.user;
+    }
+)
+
 const auth = createSlice({
 
     name: 'auth',
@@ -107,6 +125,12 @@ const auth = createSlice({
                 state.loading = true
             })
             .addCase(authConfirmLoginWithEmail.fulfilled, (state, action) => {
+                state.loading = false
+            })
+            .addCase(authLoginWithGoogle.pending, (state, action) => {
+                state.loading = true
+            })
+            .addCase(authLoginWithGoogle.fulfilled, (state, action) => {
                 state.loading = false
             })
     }

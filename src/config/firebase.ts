@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { GoogleAuthProvider, FacebookAuthProvider } from "firebase/auth";
 
 var firebaseConfig = {
     apiKey: `${process.env.REACT_APP_API_KEY}`,
@@ -17,6 +18,9 @@ var firebaseConfig = {
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 
+export const googleProvider = new GoogleAuthProvider();
+
+export const facebookProvider = new FacebookAuthProvider();
 
 // Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(app);

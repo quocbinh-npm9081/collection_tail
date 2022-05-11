@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from './redux/store.hooks';
-import { onAuthStateChanged, sendSignInLinkToEmail, sendEmailVerification, signOut } from "firebase/auth";
+import { onAuthStateChanged, sendSignInLinkToEmail, signOut } from "firebase/auth";
 import { auth } from './config/firebase';
 import { addUser } from './redux/slides/auth.slides';
 import { actionCodeSettings } from './redux/actions/auth.action';
@@ -21,10 +21,10 @@ function App() {
     const authListender = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const email: any = user.email;
-        console.log(user);
+        // console.log(user);
 
-        console.log(user.emailVerified);
-        console.log("URL: ", window.location.href);
+        //console.log(user.emailVerified);
+        //console.log("URL: ", window.location.href);
 
         const providerId = user.providerData.some(p => p.providerId === 'password');;
 

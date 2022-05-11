@@ -1,8 +1,7 @@
 import React, { FormEvent } from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { SiFacebook } from '@react-icons/all-files/si/SiFacebook';
-import { FcGoogle } from '@react-icons/all-files/fc/FcGoogle';
+import LoginSociaMedia from './LoginSociaMedia';
 import validLogin from '../../ulits/validations/login';
 import { toast } from 'react-toastify';
 import { ILogin } from '../../redux/type';
@@ -139,23 +138,7 @@ const Login = () => {
                                 </span>
                             </div>
                         </form>
-                        <div className='flex items-center justify-center'>
-                            <button className='w-full my-2 p-2 font-semibold flex items-center justify-center border-2 border-transparent rounded-md hover:border-slate-100	'
-                            >
-                                <FcGoogle
-                                    fontSize={36}
-                                />
-                                Google
-                            </button>
-                            <button className='w-full my-2 p-2 font-semibold flex items-center justify-center border-2 border-transparent rounded-md hover:border-slate-100	'
-                            >
-                                <SiFacebook
-                                    fontSize={36}
-                                    color='#3A559F'
-                                />
-                                Facebook
-                            </button>
-                        </div>
+                        <LoginSociaMedia />
                     </div>
                 </div>
             </div>

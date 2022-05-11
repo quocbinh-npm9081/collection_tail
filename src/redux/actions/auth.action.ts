@@ -3,13 +3,14 @@ import {
     browserLocalPersistence,
     browserSessionPersistence,
     signInWithEmailAndPassword,
-    signInWithEmailLink,
     updateProfile,
-    setPersistence
+    setPersistence,
+    signInWithPopup
+
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import { ILogin, IRegister } from "../type";
-import { auth } from './../../config/firebase';
+import { auth, googleProvider } from './../../config/firebase';
 // import { useLocation, useNavigate } from "react-router-dom";
 export const registerApi = async (user: IRegister) => {
 
@@ -72,17 +73,21 @@ export const loginApi = async (user: ILogin) => {
 }
 
 
-// export const confirmApi = async (user: ILogin) => {
-//     try {
-//         const { email, remember } = user;
-//         let location = useLocation<ILocationParams>();
+export const googleApi = async () => {
+    try {
+        const res = await signInWithPopup(auth, googleProvider);
+        return res.user;
 
-//         await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence);
-//         const res = await signInWithEmailLink(auth, email, location.search);
-//         console.log("URL", location.search);
+    } catch (error: any) {
+        toast.error('Some thing went wrong !', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+        });
+    }
+}
 
-//         return res.user;
-//     } catch (error) {
-
-//     }
-// }
