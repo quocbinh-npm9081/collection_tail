@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { ILogin } from '../../redux/type';
 import Error from '../errors/Errors';
 import { useAppDispatch, useAppSelector } from '../../redux/store.hooks';
-import { authLogin, isForgotPassword } from '../../redux/slides/auth.slides';
+import { authLogin, isForgotPassword, isRegister } from '../../redux/slides/auth.slides';
 import Loading from '../loading/Loading';
 const Login = () => {
 
@@ -19,7 +19,7 @@ const Login = () => {
 
     const dispatch = useAppDispatch();
 
-    const { loading, register } = useAppSelector(state => state.auth);
+    const { loading } = useAppSelector(state => state.auth);
 
     const onHandleSumit = (e: FormEvent) => {
 
@@ -69,7 +69,11 @@ const Login = () => {
                         </p>
                         <p className="flex flex-col items-center justify-center mt-10 text-center">
                             <span>Don't have an account? </span>
-                            <Link to="/register" className="underline">Register</Link>
+                            <span onClick={() => dispatch(isRegister(true))}>
+
+                                <Link to="/register" className="underline">Register</Link>
+
+                            </span>
                         </p>
 
                     </div>

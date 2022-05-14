@@ -8,7 +8,7 @@ import { FcGoogle } from '@react-icons/all-files/fc/FcGoogle';
 import { useAppDispatch, useAppSelector } from '../../redux/store.hooks';
 import { toast } from 'react-toastify';
 import Errors from '../errors/Errors';
-import { authRegister } from '../../redux/slides/auth.slides';
+import { authRegister, isRegister } from '../../redux/slides/auth.slides';
 const Register: React.FC = () => {
 
     const [userName, setUserName] = useState('');
@@ -19,7 +19,7 @@ const Register: React.FC = () => {
 
     const [cfPassword, setCfPassword] = useState('');
 
-    const { loading, currentUser } = useAppSelector(state => state.auth);
+    const { loading, currentUser, register } = useAppSelector(state => state.auth);
 
     const dispatch = useAppDispatch();
 
@@ -143,7 +143,14 @@ const Register: React.FC = () => {
 
                         <div className='py-2 md:hidden w-full flex text-xs'>
                             I already have an account ?
-                            <span><Link to='/login'>Login</Link></span>
+                            <span
+                                onClick={() => dispatch(isRegister(false))}
+                            >
+                                <Link to='/login'
+
+                                >Login
+                                </Link>
+                            </span>
                         </div>
                         <button type="submit" className="block w-full bg-indigo-600 md:mt-4 py-2 mt-2 rounded-2xl text-white font-semibold mb-2">Register</button>
                         <div className='flex flex-col py-3'>

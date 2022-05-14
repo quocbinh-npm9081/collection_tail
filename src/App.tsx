@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import './App.css';
 import Route from './router/index';
 import Header from './components/header/Header';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from './redux/store.hooks';
@@ -57,8 +57,17 @@ function App() {
       }
     });
     return authListender;
-  }, [dispatch, navigate])
+  }, [dispatch, navigate]);
 
+
+
+  useEffect(() => {
+    if (currentUser) {
+
+      return navigate('/');
+
+    }
+  }, [currentUser, navigate]);
   return (
     <>
       <Header />
