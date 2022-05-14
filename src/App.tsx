@@ -11,7 +11,7 @@ import { auth } from './config/firebase';
 import { addUser } from './redux/slides/auth.slides';
 import { actionCodeSettings } from './redux/actions/auth.action';
 function App() {
-  const { currentUser, register } = useAppSelector(state => state.auth);
+  const { currentUser, register, forgotPassword } = useAppSelector(state => state.auth);
 
   const navigate = useNavigate();
 
@@ -51,9 +51,9 @@ function App() {
       } else {
 
         dispatch(addUser(undefined));
-        if (!register) return navigate('/login');
-        else return navigate('/register');
-
+        if (!register && !forgotPassword) return navigate('/login');
+        if (register) return navigate('/register');
+        if (forgotPassword && !register) return navigate('/forgot_password');
       }
     });
     return authListender;

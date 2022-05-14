@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import AvataNavbar from './AvataNavbar';
 import { useAppDispatch, useAppSelector } from '../../redux/store.hooks';
-import { isRegister, authLogout } from '../../redux/slides/auth.slides';
+import { isRegister, authLogout, isForgotPassword } from '../../redux/slides/auth.slides';
 const itemsNav = [{
     display: 'Login',
     path: '/login'
@@ -18,6 +18,10 @@ const Navbar = () => {
 
     const { currentUser } = useAppSelector(state => state.auth);
 
+    const onHandleClickLogin = () => {
+        dispatch(isRegister(false));
+        dispatch(isForgotPassword(false));
+    }
 
     return (
         <div>
@@ -51,7 +55,7 @@ const Navbar = () => {
                                 ) : (
                                     <Link to={item.path} key={index}>
                                         <button className='px-5 py-2 rounded-md hover:text-blue-600'
-                                            onClick={() => dispatch(isRegister(false))}
+                                            onClick={onHandleClickLogin}
 
                                         >
                                             {

@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { ILogin } from '../../redux/type';
 import Error from '../errors/Errors';
 import { useAppDispatch, useAppSelector } from '../../redux/store.hooks';
-import { authLogin } from '../../redux/slides/auth.slides';
+import { authLogin, isForgotPassword } from '../../redux/slides/auth.slides';
 import Loading from '../loading/Loading';
 const Login = () => {
 
@@ -19,7 +19,7 @@ const Login = () => {
 
     const dispatch = useAppDispatch();
 
-    const { loading } = useAppSelector(state => state.auth);
+    const { loading, register } = useAppSelector(state => state.auth);
 
     const onHandleSumit = (e: FormEvent) => {
 
@@ -119,7 +119,9 @@ const Login = () => {
                                     <label htmlFor="remember" className="text-sm font-semibold text-gray-500">Remember me</label>
 
                                 </div>
-                                <Link to='/forgot_password' className="text-sm text-blue-600 hover:underline focus:text-blue-800"
+                                <Link to='/forgot_password'
+                                    className="text-sm text-blue-600 hover:underline focus:text-blue-800"
+                                    onClick={() => dispatch(isForgotPassword(true))}
                                 >Forgot Password?</Link>
 
                             </div>

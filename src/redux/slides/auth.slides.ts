@@ -19,6 +19,7 @@ const authen = getAuth();
 
 
 const initialState: IAuthState = {
+    forgotPassword: false,
     register: false,
     currentUser: undefined,
     loading: false
@@ -123,9 +124,13 @@ const auth = createSlice({
         },
 
         isRegister: (state, action) => {
-            console.log(action.payload);
+            //  console.log(action.payload);
 
             state.register = action.payload
+        },
+
+        isForgotPassword: (state, action) => {
+            state.forgotPassword = action.payload
         }
     },
 
@@ -165,6 +170,6 @@ const auth = createSlice({
 })
 
 export const getStateAuth = (state: RootState) => state.auth;
-export const { addUser, isRegister } = auth.actions;
+export const { addUser, isRegister, isForgotPassword } = auth.actions;
 
 export default auth.reducer;

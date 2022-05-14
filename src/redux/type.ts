@@ -23,6 +23,7 @@ export interface IAuth extends FireAuth.User {
 
 }
 export interface IAuthState {
+    forgotPassword: boolean,
     register: boolean,
     currentUser?: IAuth,
     loading: boolean
